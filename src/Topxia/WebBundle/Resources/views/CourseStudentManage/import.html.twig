@@ -1,0 +1,19 @@
+{% extends 'TopxiaWebBundle:CourseManage:layout.html.twig' %}
+
+{% block title %}{{'导入管理'|trans}} - {{ parent() }}{% endblock %}
+{% set side_nav = 'students' %}
+
+{% block main %}
+  {% if course.status == 'published' %}
+    {{ render(controller('TopxiaWebBundle:Importer:ValidateExcelInfo',{request:app.request, target:{type:'course', id:course.id}})) }}
+  {% else %}
+    <div class="panel panel-default panel-col">
+      <div class="panel-heading">{{'学员批量导入'|trans}}</div>
+      <div class="panel-body">
+        <div class="empty">{{'未发布'|trans}}{{setting("classroom.name")|default("班级"|trans)}}{{'不能导入学员'|trans}}!</div>
+      </div>
+    </div>
+  {% endif %}
+
+
+{% endblock %}
